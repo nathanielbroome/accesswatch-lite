@@ -1,0 +1,6 @@
+2024-03-12 14:22:10 user=john ip=192.168.1.10 status=FAIL
+2024-03-12 14:22:15 user=john ip=192.168.1.10 status=FAIL
+2024-03-12 14:22:20 user=john ip=192.168.1.10 status=SUCCESS
+2024-03-12 15:01:05 user=mary ip=10.0.0.5 status=FAIL
+2024-03-12 15:01:10 user=mary ip=10.0.0.5 status=FAIL
+2024-03-12 15:01:15 user=mary ip=10.0.0.5 status=FAIL
