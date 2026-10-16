@@ -1,4 +1,5 @@
 import os
+from datetime import datetime
 from collections import Counter
 
 def main():
@@ -10,14 +11,41 @@ def main():
     total_entries = len(lines)
 
     failed_attempts = sum(1 for line in lines if "status=FAIL" in line)
-
+    
+    failed_by_ip = {}
+    logs = []
     ips = []
     for line in lines:
+        ip = None
+        status = None
         parts = line.split()
+        timestamp_text = parts[0] + " " + parts[1]
+        timestamp_object = datetime.strptime(timestamp_text, "%Y-%m-%d %H:%M:%S")
+
+
         for part in parts:
             if part.startswith("ip="):
                 ip = part.replace("ip=", "")
                 ips.append(ip)
+            if part.startswith("status="):
+                status = part.replace("status=", "")
+        entry = {
+            "timestamp": timestamp_object,
+            "ip": ip,
+            "status": status
+        }       
+        logs.append(entry)
+        
+    #loop through each log entry
+    for entry in logs:
+        if(entry["status"] != "FAIL"):
+            continue
+        if entry["ip"] not in failed_by_ip:
+            failed_by_ip[entry["ip"]] = []
+
+        failed_by_ip[entry["ip"]].append(entry["timestamp"])
+
+
 
     unique_ip = len(set(ips))
 
