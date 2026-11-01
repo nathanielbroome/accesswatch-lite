@@ -3,7 +3,7 @@ from datetime import datetime
 from collections import Counter
 
 def main():
-    log_path = os.path.join("..", "logs", "auth.log")
+    log_path = os.path.join("logs", "auth.log")
 
     with open(log_path, "r") as f:
         lines = f.readlines()
@@ -45,7 +45,9 @@ def main():
 
         failed_by_ip[entry["ip"]].append(entry["timestamp"])
 
-
+    for ip in failed_by_ip:
+        failed_by_ip[ip].sort()
+        
 
     unique_ip = len(set(ips))
 
